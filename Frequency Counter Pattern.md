@@ -136,3 +136,83 @@ function validAnagram(first, second) {
     return true;
 }
 ```
+
+---
+## sameFrequency
+```
+Write a function called sameFrequency. Given two positive integers,
+find out if the two numbers have the same frequency of digits.
+```
+```
+sameFrequency라는 함수를 작성하십시오. 두 개의 양의 정수가 주어 졌을 때
+두 숫자의 숫자가 같은 자릿수인지 확인하십시오.
+```
+```javascript
+sameFrequency(182, 281) // true
+sameFrequency(34, 14) // false
+sameFrequency(3589578, 5879385) // true
+sameFrequency(22, 222) // false
+```
+```javascript
+function sameFrequency(num1, num2){
+    if(num1.length !== num2.length) return false;
+
+    const freCounter = {};
+
+    while(num1 > 0) {
+        let num = num1 % 10;
+        freCounter[num] = (freCounter[num] || 0) + 1;
+        num1 = Math.floor(num1 / 10);
+    }
+
+    while(num2 > 0) {
+        let num = num2 % 10;
+        if(!freCounter[num]) {
+            return false;
+        } else {
+            freCounter[num] -= 1;
+        }
+        num2 = Math.floor(num2 / 10);   
+    }
+
+    return true;
+}
+```
+
+---
+## areThereDuplicates
+```
+Implement a function called, areThereDuplicates which accepts a variable number of arguments, 
+and checks whether there are any duplicates among the arguments passed in. 
+You can solve this using the frequency counter pattern OR the multiple pointers pattern.
+```
+```
+가변 개수의 인수를 허용하는 areThereDuplicates 함수를 구현하고 전달 된 인수 사이에 중복이 있는지 확인합니다.
+주파수 카운터 패턴 또는 다중 포인터 패턴을 사용하여 이를 해결할 수 있습니다.
+```
+```javascript
+areThereDuplicates(1, 2, 3) // false
+areThereDuplicates(1, 2, 2) //true
+areThereDuplicates('a', 'b', 'c', 'a') // true
+```
+```javascript
+function areThereDuplicates() {
+    const freCounter = {};
+    
+    for(let i = 0; i < arguments.length; i++) {
+        if(freCounter[arguments[i]]) {
+            return true;
+        } else {
+            freCounter[arguments[i]] = 1;
+        }
+    }
+    
+    return false;
+}
+```
+#### areThereDuplicates One Liner Solution
+```javascript
+function areThereDuplicates() {
+  return new Set(arguments).size !== arguments.length;
+}
+```
