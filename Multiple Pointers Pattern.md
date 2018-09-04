@@ -110,3 +110,114 @@ function countUniqueValues(arr){
   return answer;
 }
 ```
+---
+## areThereDuplicates
+```
+Implement a function called, areThereDuplicates which accepts a variable number of arguments, 
+and checks whether there are any duplicates among the arguments passed in. 
+You can solve this using the frequency counter pattern OR the multiple pointers pattern.
+```
+```
+가변 개수의 인수를 허용하는 areThereDuplicates 함수를 구현하고 전달 된 인수 사이에 중복이 있는지 확인합니다.
+주파수 카운터 패턴 또는 다중 포인터 패턴을 사용하여 이를 해결할 수 있습니다.
+```
+```javascript
+areThereDuplicates(1, 2, 3) // false
+areThereDuplicates(1, 2, 2) //true
+areThereDuplicates('a', 'b', 'c', 'a') // true
+```
+```javascript
+function areThereDuplicates(...args) {
+    args.sort((a,b) => a > b);
+    let start = 0;
+    let next = 1;
+    while(next < args.length){
+        if(args[start] === args[next]){
+            return true;
+        }
+        start++;
+        next++;
+    }
+    return false;
+}
+```
+---
+## averagePair
+```
+Write a function called averagePair. Given a sorted array of integers and a target average, 
+determine if there is a pair of values in the array where the average of ther pair equals the target average. 
+There may be more than one pair that matches the average target.
+```
+```
+averagePair라는 함수를 작성하십시오. 정렬 된 정수 배열과 목표 평균을 입력받으면 
+배열의 쌍의 평균값이 목표 평균과 같은 쌍이 있는지 확인하십시오. 
+평균 목표와 일치하는 쌍이 둘 이상 있을 수 있습니다.
+```
+```javascript
+averagePair([1,2,3],2.5) // true
+averagePair([1,3,3,5,6,7,10,12,19],8) //true
+averagePair([-1,0,3,4,5,6],4.1) // false
+averagePair([],4) // false
+```
+```javascript
+function averagePair(arr, target){
+    let left = 0, right = arr.length - 1;
+    while(left < right) {
+        let ave = (arr[left] + arr[right]) / 2;
+        if(ave < target) {
+            left++;
+        } else if(ave > target) {
+            right--;
+        } else {
+            return true;
+        }
+    }
+    
+    return false;
+}
+```
+---
+## isSubSequence
+```
+Write a function called isSubsequence which takes in two strings and checks 
+whether the characters in the first string from a subsequence of the characters in the second string.
+In other words, the function should check whether the characters in the first string appear 
+somewhere in the second string, without their order changing.
+```
+```
+isSubsequence라는 함수를 작성합니다. 이 함수는 두 개의 문자열을 입력받고
+두 번째 문자열의 하위 시퀀스에서 첫 번째 문자열의 문자가 있는지 확인합니다.
+즉 함수는 첫 번째 문자열의 문자가 두 번째 문자열의 어딘가에 순서가 변경되지 않고 나타나는지 확인해야합니다.
+```
+```javascript
+isSubsequence('hello', 'hello world'); // true
+isSubsequence('sing', 'sting'); // true
+isSubsequence('abc', 'abracadabra'); // true
+isSubsequence('abc', 'acb'); // false (order matters)
+```
+```javascript
+function isSubsequence(str1, str2) {
+  if(str1.length > str2.length) return false;
+  let point1 = 0, point2 = 0;
+  
+  while(point2 < str2.length) {
+      if(str1[point1] === str2[point2]) {
+          point1++;
+      }
+      point2++;
+      if(point1 === str1.length) {
+          return true;
+      }
+  }
+  return false;
+}
+```
+#### isSubSequence Recursive but not O(1) Space
+```javascript
+function isSubsequence(str1, str2) {
+    if(str1.length === 0) return true
+    if(str2.length === 0) return false
+    if(str2[0] === str1[0]) return isSubsequence(str1.slice(1), str2.slice(1))  
+    return isSubsequence(str1, str2.slice(1))
+}
+```
