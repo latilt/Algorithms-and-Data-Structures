@@ -405,6 +405,62 @@ class DoublyLinkedList {
     }
 }
 ```
+## Reverse
+Reversing the Linked List in place
+```javascript
+class Node {
+    constructor(val) {
+        this.val = val;
+        this.next = null;
+        this.prev = null;
+    }
+}
+
+class DoublyLinkedList {
+    constructor() {
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
+    }
+    push(val) {
+        /* */
+    }
+    pop() {
+        /* */
+    }
+    shift() {
+        /* */
+    }
+    unshift(val) {
+        /* */
+    }
+    get(index) {
+        /* */
+    }
+    set(index, val) {
+        /* */
+    }
+    insert(index, val) {
+        /* */
+    }
+    remove(index) {
+       /* */
+    }
+    reverse(){
+        let node = this.head;
+        this.head = this.tail;
+        this.tail = node;
+        let nextNode;
+        for(let i = 0; i < this.length; i++) {
+            nextNode = node.next;
+            node.next = node.prev;
+            node.prev = nextNode;
+            node = nextNode;
+        }
+        return this;
+    }
+}
+```
 ## Big O of Doubly Linked Lists
 Insertion - $O(1)$
 Removal - $O(1)$
