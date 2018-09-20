@@ -342,3 +342,76 @@ class DoublyLinkedList {
     }
 }
 ```
+## Remove
+Removing a node in a Doubly Linked List by a certain position
+* If the index is less than zero or greater than or equal to the length return undefined
+* If the index is 0, shift
+* If the index is the same as the length - 1, pop
+* Use the get method to retrieve the item to be removed
+* Update the next and prev properties to remove the found node from the list
+* Set next and prev to null on the found node
+* Decrement the length
+* Return the removed node
+```javascript
+class Node {
+    constructor(val) {
+        this.val = val;
+        this.next = null;
+        this.prev = null;
+    }
+}
+
+class DoublyLinkedList {
+    constructor() {
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
+    }
+    push(val) {
+        /* */
+    }
+    pop() {
+        /* */
+    }
+    shift() {
+        /* */
+    }
+    unshift(val) {
+        /* */
+    }
+    get(index) {
+        /* */
+    }
+    set(index, val) {
+        /* */
+    }
+    insert(index, val) {
+        /* */
+    }
+    remove(index) {
+        if(index < 0 || index >= this.length) return undefined;
+        if(index === 0) return this.shift();
+        if(index === this.length - 1) return this.pop();
+        let removedNode = this.get(index);
+        let beforeNode = removedNode.prev;
+        let afterNode = removedNode.next;
+        beforeNode.next = afterNode;
+        afterNode.prev = beforeNode;
+        /*  removedNode.prev.next = removedNode.next;
+            removedNode.next.prev = removedNode.prev;  */
+        removedNode.next = null, removedNode.prev = null;
+        this.length--;
+        return removedNode;
+    }
+}
+```
+## Big O of Doubly Linked Lists
+Insertion - $O(1)$
+Removal - $O(1)$
+Searching - $O(N)$
+Access - $O(N)$
+Technically searching is $O(N / 2)$, but that's still $O(N)$
+## Recap
+* Doubly Linked Lists are almost identical to Singly Linked Lists except there is an additional pointer to previous nodes
+* Better than Singly Lnked Lists for finding nodes and can be done in half the time
+* However, they do take up more memory considering the extra pointer
